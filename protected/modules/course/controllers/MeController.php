@@ -54,7 +54,9 @@ class MeController extends Controller
 	public function actionLearning(){
 		
 		$courseDataProvider = new CActiveDataProvider('Course',array(
-														'criteria'=>array('join'=>'left join ew_course_member m on t.id=m.courseId',
+														'criteria'=>array(
+															'select'=>'*,m.*',
+															'join'=>'left join ew_course_member m on t.id=m.courseId',
 																		  'condition'=>'find_in_set("student",m.roles) and m.userId='.Yii::app()->user->id,
 																			'distinct'=>true,
 																		  'order'=>'m.startTime desc'),
@@ -68,7 +70,9 @@ class MeController extends Controller
 	public function actionManage(){
 		
 		$courseDataProvider = new CActiveDataProvider('Course',array(
-														'criteria'=>array('join'=>'inner join ew_course_member m on t.id=m.courseId',
+														'criteria'=>array(
+															'select'=>'*,m.*',
+															'join'=>'inner join ew_course_member m on t.id=m.courseId',
 																			'distinct'=>true,
 																		'condition'=>'find_in_set("admin",roles) or find_in_set("superAdmin",roles) and m.userId='.Yii::app()->user->id,
 																		  'order'=>'m.startTime desc'),
@@ -91,7 +95,7 @@ class MeController extends Controller
 	public function actionNoteList(){
 		$userId = Yii::app()->user->id;
 		//$sql = "select n.*,count(n.*) as siblingCount from note n left join lesson l on n.noteableEntityId=l.entityId group by l.courseId order by n.addTime where n.userId=$userId";
-		$sql = "select n.*,count(*) as siblingCount,l.courseId as courseId from ew_note n left join ew_lesson l on n.noteableEntityId=l.entityId where n.userId=".Yii::app()->user->id." group by l.courseId order by n.addTime";
+		$sql = "select n.*,count(*) as siblingCount,l.courseId as courseId,l.courseId from ew_note n left join ew_lesson l on n.noteableEntityId=l.entityId where n.userId=".Yii::app()->user->id." group by l.courseId,n.id order by n.addTime";
 		//$sql = "select n.*,count(*) as siblingCount from note lpn inner join dxd_lesson l on lpn.lessonid=l.lessonid where lpn.userId=$userId group by l.courseId order by lpn.addTime desc";
 		//$lessonNotes = LessonNote::model()->with('lesson.course')->findAllBySql($sql);
 		$notes = Note::model()->findAllBySql($sql);

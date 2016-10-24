@@ -1,6 +1,6 @@
-#忽略svn文件
+#锟斤拷锟斤拷svn锟侥硷拷
 .svn
-忽略当前目录下的.settings文件
+锟斤拷锟皆碉拷前目录锟铰碉拷.settings锟侥硷拷
 /.settings
 /.buildpath
 /~htaccess
@@ -11,3 +11,6 @@
 .DS_Store
 .htaccess
 .git
+.phpintel/
+caches/
+uploads/

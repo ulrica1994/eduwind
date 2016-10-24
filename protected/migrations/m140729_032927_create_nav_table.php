@@ -11,6 +11,7 @@ class m140729_032927_create_nav_table extends CDbMigration
             'weight'    =>  "int(11) NOT NULL DEFAULT '0'",
             'url'       =>  "char(255) NOT NULL DEFAULT ''",
             'location'  =>  "char(32) NOT NULL DEFAULT 'top'",
+            'displayRule'  => "VARCHAR(45) DEFAULT 'return true;'",
             "PRIMARY KEY (`id`)",
         ), "ENGINE=InnoDB  DEFAULT CHARSET=utf8");
 	}
